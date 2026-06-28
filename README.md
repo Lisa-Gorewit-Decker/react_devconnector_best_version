@@ -1,4 +1,4 @@
-# DevConnector 2.0
+# React DevConnector 2.0 Best Version
 
 > Social network for developers
 
