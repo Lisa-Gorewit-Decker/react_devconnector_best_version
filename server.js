@@ -1,14 +1,21 @@
 const express = require('express');
 const connectDB = require('./config/db');
 const path = require('path');
+const rateLimit = require('express-rate-limit');
 
 const app = express();
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 1000 // limit each IP to 1000 requests per windowMs
+});
 
 // Connect Database
 connectDB();
 
 // Init Middleware
 app.use(express.json());
+app.use(limiter);
 
 // Define Routes
 app.use('/api/users', require('./routes/api/users'));
