@@ -3,6 +3,27 @@ const connectDB = require('./config/db');
 const path = require('path');
 const rateLimit = require('express-rate-limit');
 
+let server;
+
+const shutdown = (error, origin) => {
+  console.error(`${origin}:`, error);
+
+  if (server && server.listening) {
+    const timeout = setTimeout(() => process.exit(1), 10_000).unref();
+    server.close(() => { clearTimeout(timeout); process.exit(1); });
+  } else {
+    process.exit(1);
+  }
+};
+
+process.on('unhandledRejection', (reason) => {
+  shutdown(reason, 'Unhandled Rejection');
+});
+
+process.on('uncaughtException', (error) => {
+  shutdown(error, 'Uncaught Exception');
+});
+
 const app = express();
 if (process.env.NODE_ENV === 'production') app.set('trust proxy', 1);
 
@@ -37,19 +58,4 @@ if (process.env.NODE_ENV === 'production') {
 
 const PORT = process.env.PORT || 5000;
 
-const server = app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
-
-const shutdown = (error, origin) => {
-  console.error(`${origin}:`, error);
-
-  const timeout = setTimeout(() => process.exit(1), 10_000).unref();
-  server.close(() => { clearTimeout(timeout); process.exit(1); });
-};
-
-process.on('unhandledRejection', (reason) => {
-  shutdown(reason, 'Unhandled Rejection');
-});
-
-process.on('uncaughtException', (error) => {
-  shutdown(error, 'Uncaught Exception');
-});
+server = app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
