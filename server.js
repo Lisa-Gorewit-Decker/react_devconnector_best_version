@@ -7,7 +7,7 @@ const app = express();
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 1000 // limit each IP to 1000 requests per windowMs
+  max: 100 // limit each IP to 100 requests per windowMs
 });
 
 // Connect Database
@@ -28,11 +28,28 @@ if (process.env.NODE_ENV === 'production') {
   // Set static folder
   app.use(express.static('client/build'));
 
-  app.get('*', (req, res) => {
+  // SPA fallback: only for non-API frontend routes
+  app.get(/^\/(?!api\/).*/, (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+const server = app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+
+const shutdown = (error, origin) => {
+  console.error(`${origin}:`, error);
+
+  server.close(() => {
+    process.exit(1);
+  });
+};
+
+process.on('unhandledRejection', (reason) => {
+  shutdown(reason, 'Unhandled Rejection');
+});
+
+process.on('uncaughtException', (error) => {
+  shutdown(error, 'Uncaught Exception');
+});
