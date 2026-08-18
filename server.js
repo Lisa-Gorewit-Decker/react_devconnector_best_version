@@ -41,9 +41,8 @@ const server = app.listen(PORT, () => console.log(`Server started on port ${PORT
 const shutdown = (error, origin) => {
   console.error(`${origin}:`, error);
 
-  server.close(() => {
-    process.exit(1);
-  });
+  const timeout = setTimeout(() => process.exit(1), 10_000).unref();
+  server.close(() => { clearTimeout(timeout); process.exit(1); });
 };
 
 process.on('unhandledRejection', (reason) => {
