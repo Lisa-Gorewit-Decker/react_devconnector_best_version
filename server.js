@@ -3,11 +3,36 @@ const connectDB = require('./config/db');
 const path = require('path');
 const rateLimit = require('express-rate-limit');
 
+let server;
+
+const shutdown = (error, origin) => {
+  console.error(`${origin}:`, error);
+
+  if (server && server.listening) {
+    const timeout = setTimeout(() => process.exit(1), 10_000).unref();
+    server.close(() => { clearTimeout(timeout); process.exit(1); });
+  } else {
+    process.exit(1);
+  }
+};
+
+process.on('unhandledRejection', (reason) => {
+  shutdown(reason, 'Unhandled Rejection');
+});
+
+process.on('uncaughtException', (error) => {
+  shutdown(error, 'Uncaught Exception');
+});
+
 const app = express();
+if (process.env.NODE_ENV === 'production') app.set('trust proxy', 1);
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 1000 // limit each IP to 1000 requests per windowMs
+  limit: 100, // limit each IP to 100 requests per windowMs
+  standardHeaders: 'draft-8', // return rate-limit info in RateLimit-* headers
+  legacyHeaders: false, // disable deprecated X-RateLimit-* headers
+  validate: { trustProxy: false }, // trust proxy is explicitly set above; suppress warning
 });
 
 // Connect Database
@@ -28,11 +53,12 @@ if (process.env.NODE_ENV === 'production') {
   // Set static folder
   app.use(express.static('client/build'));
 
-  app.get('*', (req, res) => {
+  // SPA fallback: only for non-API frontend routes
+  app.get(/^\/(?!api(?:\/|$)).*/, (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+server = app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
