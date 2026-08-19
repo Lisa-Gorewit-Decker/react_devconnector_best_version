@@ -14,8 +14,8 @@ currently being supported with security updates.
 
 ## Reporting a Vulnerability
 
-Please report suspected vulnerabilities **privately** by emailing
-**security@example.com** with the subject line `Vulnerability Report`.
+Please report suspected vulnerabilities **privately** using
+[GitHub's private vulnerability reporting](https://github.com/Lisa-Gorewit-Decker/react_devconnector_best_version/security/advisories/new).
 
 Include, where possible:
 - Affected component(s) and version(s)
