@@ -14,8 +14,22 @@ currently being supported with security updates.
 
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
+Please report suspected vulnerabilities **privately** using
+[GitHub's private vulnerability reporting](https://github.com/Lisa-Gorewit-Decker/react_devconnector_best_version/security/advisories/new).
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+Include, where possible:
+- Affected component(s) and version(s)
+- Clear reproduction steps or proof-of-concept
+- Potential impact and suggested remediation
+
+What to expect after you report:
+- **Acknowledgement:** within 3 business days
+- **Initial triage outcome:** within 7 business days
+- **Status updates:** at least every 14 days until resolution or closure
+
+If the report is accepted, we will work on a fix and coordinate a disclosure
+timeline with you. If the report is declined, we will explain why (for example,
+not reproducible, out of scope, or expected behavior).
+
+Please do not disclose vulnerabilities publicly until we have investigated and,
+where needed, released a fix.
