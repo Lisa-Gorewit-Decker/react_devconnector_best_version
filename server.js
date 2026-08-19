@@ -29,7 +29,10 @@ if (process.env.NODE_ENV === 'production') app.set('trust proxy', 1);
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // limit each IP to 100 requests per windowMs
+  limit: 100, // limit each IP to 100 requests per windowMs
+  standardHeaders: 'draft-8', // return rate-limit info in RateLimit-* headers
+  legacyHeaders: false, // disable deprecated X-RateLimit-* headers
+  validate: { trustProxy: false }, // trust proxy is explicitly set above; suppress warning
 });
 
 // Connect Database
