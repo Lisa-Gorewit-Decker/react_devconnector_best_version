@@ -12,10 +12,12 @@
   },
   "author": "Lisa Gorewit-Decker",
   "license": "MIT",
+  "workspaces": [
+    "client"
+  ],
   "dependencies": {
     "axios": "0.33.0",
     "bcryptjs": "^2.4.3",
-    "client": "file:client",
     "config": "^3.3.3",
     "express": "^4.17.1",
     "express-rate-limit": "^8.6.2",
@@ -31,6 +33,12 @@
   },
   "overrides": {
     "underscore": "1.13.8",
-    "serialize-javascript": ">=7.0.5"
+    "serialize-javascript": ">=7.0.5",
+    "nth-check": "3.0.1",
+    "postcss": "8.5.26",
+    "uuid": ">=11.1.1",
+    "svgo": "2.8.3",
+    "webpack-dev-server": "5.2.6",
+    "@tootallnate/once": "2.0.1"
   }
 }
