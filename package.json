@@ -39,6 +39,7 @@
     "uuid": ">=11.1.1",
     "svgo": "2.8.3",
     "webpack-dev-server": "5.2.6",
-    "@tootallnate/once": "2.0.1"
+    "@tootallnate/once": "2.0.1",
+    "qs": "6.16.0"
   }
 }
