@@ -32,12 +32,13 @@
     "nodemon": "^3.1.14"
   },
   "overrides": {
+    "shell-quote": "1.11.0",
     "underscore": "1.13.8",
     "serialize-javascript": ">=7.0.5",
     "nth-check": "3.0.1",
     "postcss": "8.5.26",
     "uuid": ">=11.1.1",
-    "svgo": "2.8.3",
+    "svgo": "2.8.4",
     "webpack-dev-server": "5.2.6",
     "@tootallnate/once": "2.0.1",
     "qs": "6.16.0"
