@@ -16,9 +16,9 @@
     "client"
   ],
   "dependencies": {
-    "axios": "1.19.0",
+    "axios": "1.20.0",
     "bcryptjs": "^2.4.3",
-    "config": "^3.3.3",
+    "config": "^5.0.1",
     "express": "^5.2.1",
     "express-rate-limit": "^8.6.2",
     "express-validator": "^7.3.2",
