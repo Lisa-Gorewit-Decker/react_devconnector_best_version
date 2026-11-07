@@ -43,6 +43,9 @@
     "webpack-dev-server": "5.2.6",
     "@tootallnate/once": "2.0.1",
     "qs": "6.16.1",
-    "follow-redirects": "1.16.2"
+    "follow-redirects": "1.16.2",
+    "nodemon": {
+      "minimatch": "11.0.1"
+    }
   }
 }
