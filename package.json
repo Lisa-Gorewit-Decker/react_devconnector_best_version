@@ -16,7 +16,7 @@
     "client"
   ],
   "dependencies": {
-    "axios": "1.20.0",
+    "axios": "1.21.0",
     "bcryptjs": "^3.0.3",
     "config": "^5.0.1",
     "express": "^5.2.1",
@@ -25,6 +25,7 @@
     "gravatar": "^1.8.1",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "9.11.4",
+    "mongoose": "9.12.0",
     "normalize-url": "^10.0.0"
   },
   "devDependencies": {
